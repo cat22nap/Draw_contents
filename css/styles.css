@@ -16,6 +16,21 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 300px;
 }
+.container.list {
+    text-align: center;
+    width: 150px;
+    margin: 40px;
+    padding-bottom: 10px;
+}
+ul {
+    text-align: center;
+    font-size: 35px;
+    padding-left: 0px;
+    /* padding-bottom: 10px; */
+}
+li{
+    list-style:none;
+}
 
 button {
     padding: 10px 20px;
