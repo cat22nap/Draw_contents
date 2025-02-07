@@ -22,18 +22,22 @@ body {
     margin: 40px;
     padding-bottom: 10px;
 }
-ul {
-    text-align: center;
-    font-size: 35px;
-    padding-left: 0px;
-    /* padding-bottom: 10px; */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
-li{
-    list-style:none;
-    padding: 5px 10px;
-    border-top: 1px solid white;
-    border-bottom: 1px solid black;
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 24px;
+}
+
+th {
+    background-color: #f0f0f0;
 }
 
 li:first-child {
