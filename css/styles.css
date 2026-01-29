@@ -4,7 +4,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
+    margin-left: 50px;
     background-color: #f0f0f0;
 }
 
@@ -14,11 +14,13 @@ body {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    /* width: 300px; */
+    width: 50%;
 }
 .container.list {
     text-align: center;
-    width: 150px;
+    /* width: 150px; */
+    width: 50%;
     margin: 40px;
     padding-bottom: 10px;
 }
@@ -33,18 +35,16 @@ th, td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
-    font-size: 24px;
-}
-
-th {
+    font-size: 30px;
     background-color: #f0f0f0;
 }
 
-li:first-child {
+.first-child {
     border-top: 0px;
+    color: #333;
 }
 
-li:last-child {
+.last-child {
     border-bottom: 0px;
     color: rgb(255, 116, 3);
 }
