@@ -1,60 +1,86 @@
 // 開始番号と終了番号をJavaScriptの変数で設定
 let startNumber = 1;  // 開始番号
-let endNumber = 10;   // 終了番号
+let endNumber = 53;   // 終了番号
 
 // 除外する番号もJavaScriptの変数で設定
-const excludedNumbers = [3, 7];  // 除外する番号を設定
+const excludedNumbers = [47, 1, 45, 7, 39, 22, 12];  // 除外する番号を設定（空の配列）
 
+max_row = 10; // 縦に並べる数字の個数
 
-
+push_col_num = 0;
+push_row_num = 0;
 
 // くじ引きボタンのクリックイベントを設定
 document.getElementById('drawButton').addEventListener('click', function() {
-    // 開始番号と終了番号が正しいかチェック
-    if (startNumber > endNumber) {
-        document.getElementById('result').textContent = '開始番号は終了番号より小さい必要があります。';
-        return;
-    }
-
     // 指定された範囲の番号を配列に格納
-    const allNumbers = Array.from({ length: endNumber - startNumber + 1 }, (_, i) => startNumber + i);
+    const allNumbers = Array.from(
+        { length: endNumber - startNumber + 1 }, (_, i) => startNumber + i);
 
     // 除外する番号を取り除く
     const availableNumbers = allNumbers.filter(num => !excludedNumbers.includes(num));
 
-    const resultElement = document.getElementById('result')
-    const resultNumElement = document.getElementById('result_num');
-    const selectedListElement = document.getElementById('selectedList');
+    const result = document.getElementById('result')
+    const resultNum = document.getElementById('result_num');
+    const Table = document.getElementById('selectedTable');
 
-    resultElement.textContent = '';
+    result.textContent = '';
 
     // くじ引きボタンがクリックされた時の動作
     let intervalId = setInterval(() => {
-    // ランダムな番号を表示
-    resultNumElement.textContent = availableNumbers[Math.floor(Math.random() * availableNumbers.length)];
-}, 100); // 0.1秒ごとにランダムな番号を表示
+        // ランダムな番号を表示
+        resultNum.textContent = availableNumbers[
+            Math.floor(Math.random() * availableNumbers.length)];
+    }, 100); // 0.1秒ごとにランダムな番号を表示
 
 
 
-// 4秒後に最終的な番号を確定
-setTimeout(() => {
-    clearInterval(intervalId); // ランダム表示を停止
+    setTimeout(() => {
+        clearInterval(intervalId); // ランダム表示を停止
 
-    // 最終的に選ばれた番号を決める
-    const randomIndex = Math.floor(Math.random() * availableNumbers.length);
-    const drawnNumber = availableNumbers[randomIndex];
+        if(availableNumbers.length == 0){
+            result.textContent = '終了';
+            resultNum.textContent = '';
+        }else{
+            
+            // 最終的に選ばれる番号を決める
+            const randomIndex = Math.floor(Math.random() * availableNumbers.length);
+            const drawnNumber = availableNumbers[randomIndex];
+            // console.log(drawnNumber)
+            // 結果を表示
+            result.textContent = '選ばれた番号は:';
+            resultNum.textContent = drawnNumber;
+    
+            // 選ばれた番号を除外リストに追加して再選択できないようにする
+            excludedNumbers.push(drawnNumber);
+            
 
-    // 結果を表示
-    resultElement.textContent = '選ばれた番号は:';
-    resultNumElement.textContent = drawnNumber;
+            console.log('col_num',push_col_num)
+            console.log('row_num',push_row_num)
+            if (push_row_num != 0){
+                Table.rows[push_row_num-1].cells[push_col_num].classList.replace('last-child', 'first-child')
+            }else if ((push_col_num != 0)){
+                Table.rows[max_row-1].cells[push_col_num-1].classList.replace('last-child', 'first-child')
+            }
 
-    // 選ばれた番号を除外リストに追加して再選択できないようにする
-    excludedNumbers.push(drawnNumber);
+            if(push_col_num == 0){
+                const row = Table.insertRow(-1);
+                const cell = row.insertCell(0);
+                cell.textContent = drawnNumber;
+                cell.className = 'last-child';
+            }else{
+                const row = Table.rows[push_row_num];
+                const cell = row.insertCell(-1);
+                cell.textContent = drawnNumber;
+                cell.className = 'last-child';
+            }
 
-    // 選ばれた番号を左側のリストに追加
-    const listItem = document.createElement('li');
-    listItem.textContent = drawnNumber;
-    selectedListElement.appendChild(listItem);
-
-}, 3500); // 4秒後に確定
+            if (((push_row_num+1) == max_row) & ((push_row_num+1) % max_row == 0)){
+                push_row_num = 0;
+                push_col_num += 1;
+            }else{
+                push_row_num += 1;
+            }
+        }
+    }, 3500); // 4秒後に確定
+    // }, 100); // 4秒後に確定
 });
