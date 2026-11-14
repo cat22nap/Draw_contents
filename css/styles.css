@@ -1,3 +1,29 @@
+/* =========================================================
+   会場での調整用（ここだけ書き換えれば OK）
+   保存してブラウザを再読み込み（F5）すると反映される。
+   抽選結果は保存されているので、再読み込みしても消えない。
+   ========================================================= */
+:root {
+    /* --- 文字サイズ --- */
+    --size-result-num: 120px;   /* 当選番号（大きい数字） */
+    --size-table-num: 80px;     /* 抽選済み一覧の数字 */
+    --size-label: 30px;         /* 「選ばれた番号は:」 */
+    --size-button: 30px;        /* くじ引きボタン */
+    --size-remaining: 24px;     /* 残り人数 */
+
+    /* --- 色 --- */
+    --color-page-bg: #f0f0f0;   /* 画面全体の背景 */
+    --color-card-bg: #ffffff;   /* 白いカード部分の背景 */
+    --color-text: #333;         /* 通常の文字 */
+    --color-latest: rgb(255, 0, 107);  /* 一覧で最新の番号 */
+    --color-remaining: #666;    /* 残り人数 */
+    --color-border: #cecece;    /* 一覧の罫線 */
+    --color-button: #3f9cd9;    /* ボタン */
+    --color-button-hover: #4575a0;
+}
+
+/* ========================================================= */
+
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -5,22 +31,18 @@ body {
     align-items: center;
     height: 100vh;
     margin-left: 50px;
-    background-color: #f0f0f0;
+    background-color: var(--color-page-bg);
 }
 
 .container {
     text-align: center;
-    background-color: white;
+    background-color: var(--color-card-bg);
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    /* width: 300px; */
     width: 50%;
 }
 .container.list {
-    text-align: center;
-    /* width: 150px; */
-    width: 50%;
     margin: 40px;
     padding-bottom: 10px;
 }
@@ -31,52 +53,54 @@ table {
     margin-top: 20px;
 }
 
-th, td {
+td {
     padding: 10px;
-    border: 1.5px solid #cecece;
+    border: 1.5px solid var(--color-border);
     text-align: center;
-    font-size: 80px;
-    /* background-color: #f0f0f0; */
-    background-color: #ffffff;
+    font-size: var(--size-table-num);
+    background-color: var(--color-card-bg);
 }
 
 .first-child {
     border-top: 0px;
-    color: #333;
+    color: var(--color-text);
 }
 
 .last-child {
     border-bottom: 0px;
-    /* color: rgb(255, 0, 0); */
-    color: rgb(255, 0, 107);
+    color: var(--color-latest);
     font-weight: bold;
 }
 
 button {
     padding: 10px 20px;
-    font-size: 16px;
     cursor: pointer;
-    background-color: #3f9cd9;
+    background-color: var(--color-button);
     color: white;
-    font-size: 30px;
+    font-size: var(--size-button);
     border: none;
     border-radius: 5px;
     margin-top: 20px;
 }
 
 button:hover {
-    background-color: #4575a0;
+    background-color: var(--color-button-hover);
+}
+
+#remaining {
+    margin: 16px 0 0;
+    font-size: var(--size-remaining);
+    color: var(--color-remaining);
 }
 
 #result_num {
     margin-top: 20px;
-    font-size: 120px;
-    color: #333;
+    font-size: var(--size-result-num);
+    color: var(--color-text);
 }
 
 h2 {
     margin-top: 20px;
-    font-size: 30px;
-    color: #333;
+    font-size: var(--size-label);
+    color: var(--color-text);
 }
-
