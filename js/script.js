@@ -1,11 +1,17 @@
 // 開始番号と終了番号をJavaScriptの変数で設定
 let startNumber = 1;  // 開始番号
-let endNumber = 53;   // 終了番号
+let endNumber = 88;   // 終了番号
 
 // 除外する番号もJavaScriptの変数で設定
-const excludedNumbers = [47, 1, 45, 7, 39, 22, 12];  // 除外する番号を設定（空の配列）
+const excludedNumbers = [
+    12, 13, 16, 18, 
+    20, 23, 
+    73, 74, 75, 76, 77, 78, 
+    81, 82, 83, 88,
+    56, 67, 72, 63, 6, 7, 21, 27, 29, 30, 33, 36, 56, 63, 67, 72, 87
+];  // 除外する番号を設定（空の配列）
 
-max_row = 10; // 縦に並べる数字の個数
+max_row = 5; // 縦に並べる数字の個数
 
 push_col_num = 0;
 push_row_num = 0;

@@ -33,10 +33,11 @@ table {
 
 th, td {
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1.5px solid #cecece;
     text-align: center;
-    font-size: 30px;
-    background-color: #f0f0f0;
+    font-size: 80px;
+    /* background-color: #f0f0f0; */
+    background-color: #ffffff;
 }
 
 .first-child {
@@ -46,7 +47,9 @@ th, td {
 
 .last-child {
     border-bottom: 0px;
-    color: rgb(255, 116, 3);
+    /* color: rgb(255, 0, 0); */
+    color: rgb(255, 0, 107);
+    font-weight: bold;
 }
 
 button {
@@ -67,7 +70,7 @@ button:hover {
 
 #result_num {
     margin-top: 20px;
-    font-size: 100px;
+    font-size: 120px;
     color: #333;
 }
 
