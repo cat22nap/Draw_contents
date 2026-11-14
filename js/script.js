@@ -12,13 +12,22 @@ const EXCLUDED_NUMBERS = [
 
 const MAX_ROW = 5;             // 一覧で縦に並べる数字の個数
 const SHUFFLE_INTERVAL = 100;  // 抽選中に数字を切り替える間隔（ミリ秒）
-const DRAW_DURATION = 600;    // 抽選開始から確定までの時間（ミリ秒）
-// const DRAW_DURATION = 3500;    // 抽選開始から確定までの時間（ミリ秒）
+// const DRAW_DURATION = 600;    // 抽選開始から確定までの時間（ミリ秒）
+const DRAW_DURATION = 3500;    // 抽選開始から確定までの時間（ミリ秒）
 
 // const SHOW_REMAINING = true;   // 残り人数を表示するなら true、隠すなら false
 const SHOW_REMAINING = false;   // 残り人数を表示するなら true、隠すなら false
 
 const SAVE_RESULTS = true;     // 抽選結果をブラウザに保存し、再読み込みしても復元するなら true
+
+// 効果音（抽選中のドラムロールと、決まった瞬間の音）
+const SOUND_ENABLED = true;    // 効果音を鳴らすなら true
+// 音声ファイルのパス。空（''）にすると合成音を鳴らす
+const DRUMROLL_FILE = 'src/sound/ドラムロール.mp3';  // 抽選中の音
+const RESULT_FILE = 'src/sound/jaja.mp3';             // 決まった瞬間の音
+// 音量（0〜1）
+const DRUMROLL_VOLUME = 0.8;
+const RESULT_VOLUME = 0.8;
 
 // 抽選を実行するキー（スペース・Enter・→・↓・PageDown）
 // プレゼン用リモコンの「次へ」ボタンは、たいてい → か PageDown を送る
@@ -31,6 +40,14 @@ const DRAW_KEYS = ['Space', 'Enter', 'NumpadEnter', 'ArrowRight', 'ArrowDown', '
 const STORAGE_KEY = 'draw_contents.drawnNumbers';
 const drawnNumbers = loadDrawnNumbers();  // 抽選済みの番号（引いた順）
 let isDrawing = false;
+
+const sound = createSoundPlayer({
+    enabled: SOUND_ENABLED,
+    drumrollFile: DRUMROLL_FILE,
+    resultFile: RESULT_FILE,
+    drumrollVolume: DRUMROLL_VOLUME,
+    resultVolume: RESULT_VOLUME,
+});
 
 // ===== 画面要素 =====
 const drawButton = document.getElementById('drawButton');
@@ -101,6 +118,7 @@ function startDraw() {
     isDrawing = true;
     drawButton.disabled = true;
     result.textContent = '';
+    sound.startDrumroll(DRAW_DURATION);
 
     // 抽選中はランダムな番号を表示し続ける
     const intervalId = setInterval(() => {
@@ -109,6 +127,8 @@ function startDraw() {
 
     setTimeout(() => {
         clearInterval(intervalId);
+        sound.stopDrumroll();
+        sound.playResult();
 
         const drawnNumber = pickRandom(availableNumbers);
         drawnNumbers.push(drawnNumber);
