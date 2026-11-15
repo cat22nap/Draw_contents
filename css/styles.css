@@ -20,6 +20,12 @@
     --color-border: #cecece;    /* 一覧の罫線 */
     --color-button: #3f9cd9;    /* ボタン */
     --color-button-hover: #4575a0;
+    --color-reveal: rgb(255, 0, 107);  /* 決まった瞬間の当選番号 */
+    --color-absent: #bbbbbb;    /* 不在マークを付けた番号 */
+
+    /* --- 決まった瞬間のアニメーション --- */
+    --reveal-duration: 0.7s;    /* アニメーションの長さ */
+    --reveal-scale: 1.5;        /* いちばん大きくなったときの倍率 */
 }
 
 /* ========================================================= */
@@ -103,4 +109,33 @@ h2 {
     margin-top: 20px;
     font-size: var(--size-label);
     color: var(--color-text);
+}
+
+/* ===== 決まった瞬間のアニメーション ===== */
+#result_num.reveal {
+    color: var(--color-reveal);
+    animation: reveal var(--reveal-duration) cubic-bezier(0.2, 0.8, 0.3, 1.2);
+}
+
+@keyframes reveal {
+    0%   { transform: scale(0.3); opacity: 0; }
+    55%  { transform: scale(var(--reveal-scale)); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+/* ===== 不在マーク ===== */
+.absent-enabled td {
+    cursor: pointer;
+}
+
+td.absent,
+#result_num.absent {
+    color: var(--color-absent);
+    text-decoration: line-through;
+}
+
+/* ===== マウスカーソルを隠す ===== */
+html.hide-cursor,
+html.hide-cursor * {
+    cursor: none !important;
 }
